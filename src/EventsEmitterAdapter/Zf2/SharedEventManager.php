@@ -18,17 +18,21 @@ class SharedEventManager implements EventsEmitterAdapterInterface
     /**
      * Attach event handler to multiple events at once
      *
-     * @param array $eventNames
+     * @param array|string $eventNames
      * @param callable $handler
      * @param ZendSharedEventManagerInterface $eventsEmitter
      */
-    public function attachEvents(array $eventNames, callable $handler, $eventsEmitter)
+    public function attachEvents($eventNames, callable $handler, $eventsEmitter)
     {
         /** @noinspection PhpUndefinedClassInspection */
         if (!$eventsEmitter instanceof ZendEventManagerInterface) {
             throw new \RuntimeException('$eventsEmitter parameter for Zf2\EventManager adapter must be instance of '
                 . '`Zend\EventManager\SharedEventManagerInterface`, but instance of `' . get_class($eventsEmitter)
                 . '` was given');
+        }
+
+        if (!is_array($eventNames)) {
+            $eventNames = [$eventNames];
         }
 
         foreach ($eventNames as $eventName) {

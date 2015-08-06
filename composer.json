@@ -1,0 +1,29 @@
+{
+  "name": "feedbee/smart-notification-service",
+  "homepage": "https://github.com/feedbee/smart-notification-service",
+  "require": {
+    "php": ">=5.4.0"
+  },
+  "require-dev": {
+    "zendframework/zend-eventmanager": "~2.4",
+    "symfony/event-dispatcher": "~2.7"
+  },
+  "license": "Proprietary",
+  "authors": [
+    {
+      "name": "Valera Leontyev",
+      "email": "feedbee@gmail.com"
+    }
+  ],
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "Feedbee\\SmartNotificationService\\": [
+        "src/"
+      ],
+      "Feedbee\\SmartNotificationService\\Test\\": [
+        "test/"
+      ]
+    }
+  }
+}

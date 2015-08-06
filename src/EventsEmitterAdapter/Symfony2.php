@@ -17,17 +17,21 @@ class Symfony2 implements EventsEmitterAdapterInterface
     /**
      * Attach event handler to multiple events at once
      *
-     * @param array $eventNames
+     * @param array|string $eventNames
      * @param callable $handler
      * @param SymfonyEventDispatcher $eventsEmitter
      */
-    public function attachEvents(array $eventNames, callable $handler, $eventsEmitter)
+    public function attachEvents($eventNames, callable $handler, $eventsEmitter)
     {
         /** @noinspection PhpUndefinedClassInspection */
         if (!$eventsEmitter instanceof SymfonyEventDispatcher) {
             throw new \RuntimeException('$eventsEmitter parameter for Symfony2 adapter must be instance of '
                 . '`Symfony\Component\EventDispatcher\EventDispatcher`, but instance of `' . get_class($eventsEmitter)
                 . '` was given');
+        }
+
+        if (!is_array($eventNames)) {
+            $eventNames = [$eventNames];
         }
 
         foreach ($eventNames as $eventName) {

@@ -176,7 +176,7 @@ class HandlerService
                 if (!is_callable($realHandler)) {
                     throw new \RuntimeException('Event handler must be callable, but `' . get_class($realHandler) . '` given');
                 }
-                call_user_func($realHandler, func_get_args());
+                call_user_func_array($realHandler, func_get_args());
             };
         } else {
             $handler = $this->resolveHandler($handler);

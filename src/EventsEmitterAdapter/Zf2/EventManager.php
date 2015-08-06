@@ -20,11 +20,11 @@ class EventManager implements EventsEmitterAdapterInterface
     /**
      * Attach event handler to multiple events at once
      *
-     * @param array $eventNames
+     * @param array|string $eventNames
      * @param callable $handler
      * @param ZendEventManagerInterface $eventsEmitter
      */
-    public function attachEvents(array $eventNames, callable $handler, $eventsEmitter)
+    public function attachEvents($eventNames, callable $handler, $eventsEmitter)
     {
         /** @noinspection PhpUndefinedClassInspection */
         if (!$eventsEmitter instanceof ZendEventManagerInterface) {

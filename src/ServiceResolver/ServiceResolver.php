@@ -18,7 +18,7 @@ class ServiceResolver implements ServiceResolverInterface
         // use fabric
         $factory = $this->getFactory();
         if (!is_null($factory)) {
-            $result = $factory->create($nameOrInstance);
+            $result = $factory($nameOrInstance);
             if (!is_null($result)) {
                 return $result;
             }
@@ -37,7 +37,7 @@ class ServiceResolver implements ServiceResolverInterface
     }
 
     /**
-     * @return mixed
+     * @return \Callable
      */
     public function getFactory()
     {
@@ -45,7 +45,7 @@ class ServiceResolver implements ServiceResolverInterface
     }
 
     /**
-     * @param mixed $factory
+     * @param \Callable $factory
      */
     public function setFactory($factory)
     {
