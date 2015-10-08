@@ -286,7 +286,7 @@ class EventHandlerService
      *
      * @return DeliveryService
      */
-    private function resolveDeliveryService()
+    protected function resolveDeliveryService()
     {
         if (is_null($this->getDeliveryService())) {
             $this->setDeliveryService(new DeliveryService());
@@ -298,7 +298,7 @@ class EventHandlerService
     /**
      * @return DeliveryService
      */
-    protected function getDeliveryService()
+    public function getDeliveryService()
     {
         return $this->deliveryService;
     }
@@ -306,7 +306,7 @@ class EventHandlerService
     /**
      * @param DeliveryService $deliveryService
      */
-    protected function setDeliveryService($deliveryService)
+    public function setDeliveryService($deliveryService)
     {
         $this->deliveryService = $deliveryService;
     }

@@ -3,6 +3,7 @@
 namespace Feedbee\SmartNotificationService\Tests\Test;
 
 use Feedbee\SmartNotificationService\Service\EventHandlerService;
+use Feedbee\SmartNotificationService\Service\DeliveryService;
 use Feedbee\SmartNotificationService\Resolver\Resolver;
 use Feedbee\SmartNotificationService\Tests\EventEmitter;
 use Feedbee\SmartNotificationService\Tests\Helper\Repo;
@@ -28,12 +29,18 @@ class BasicTest
         $repository->set('emitter', $emitter);
         $eventEmitterResolver->setLocator($repository);
 
+        // Setup delivery service
+        $ds = new DeliveryService([
+            'test' => 'Feedbee\SmartNotificationService\DeliveryChannel\Test\EchoChannel'
+        ], $commonResolver);
+
         // Setup handler service
 
         $hs = new EventHandlerService;
         $hs->setEventEmitterResolver($eventEmitterResolver);
         $hs->setEventEmitterAdapterResolver($commonResolver);
         $hs->setHandlerResolver($commonResolver);
+        $hs->setDeliveryService($ds);
         $handlers = [
             [
                 'events-emitter' => 'emitter',

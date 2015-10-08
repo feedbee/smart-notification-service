@@ -21,6 +21,18 @@ class DeliveryService
      */
     protected $messageTypeToChannelMap;
 
+    /**
+     * DeliveryService constructor.
+     * @param array $messageTypeToChannelMap
+     * @param Resolver\ResolverInterface $deliveryChannelResolver
+     */
+    public function __construct(array $messageTypeToChannelMap = [], Resolver\ResolverInterface $deliveryChannelResolver = null)
+    {
+        $this->messageTypeToChannelMap = $messageTypeToChannelMap;
+        $this->deliveryChannelResolver = $deliveryChannelResolver;
+    }
+
+
     public function sendMessage(Message\MessageInterface $message)
     {
         $this->getSubstituteChannel($message)->sendMessage($message);

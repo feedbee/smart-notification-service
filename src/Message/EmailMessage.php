@@ -54,6 +54,30 @@ class EmailMessage implements MessageInterface
     private $isHtml = false;
 
     /**
+     * @param string $to
+     * @param string $cc
+     * @param string $bcc
+     * @param string $from
+     * @param string $sender
+     * @param string $replyTo
+     * @param string $subject
+     * @param string $body
+     * @param bool $isHtml
+     */
+    public function __construct($to, $subject, $body, $isHtml, $from, $replyTo, $sender, $cc, $bcc)
+    {
+        $this->to = $to;
+        $this->subject = $subject;
+        $this->body = $body;
+        $this->isHtml = $isHtml;
+        $this->from = $from;
+        $this->replyTo = $replyTo;
+        $this->sender = $sender;
+        $this->cc = $cc;
+        $this->bcc = $bcc;
+    }
+
+    /**
      * String message type identifier for mapping on delivery channel
      *
      * @return string
@@ -205,5 +229,10 @@ class EmailMessage implements MessageInterface
     public function setIsHtml($isHtml)
     {
         $this->isHtml = $isHtml;
+    }
+
+    function __toString()
+    {
+        return "{$this->getTo()} → {$this->getSubject()}";
     }
 }

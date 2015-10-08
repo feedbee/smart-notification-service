@@ -10,4 +10,6 @@ interface MessageInterface
      * @return string
      */
     public function getMessageType();
+
+    public function __toString();
 }
