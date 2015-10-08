@@ -52,8 +52,7 @@ class BasicTest
 
         // Attach events
 
-        $hs->setEventHandlersMap($handlers);
-        $hs->attachEvents();
+        $hs->attachEvents($handlers);
 
 
         // Trigger event

@@ -117,10 +117,14 @@ class EventHandlerService
     /**
      * Attach events corresponding to Event Handlers Map
      *
-     * @throws \Exception
+     * @param array $eventHandlersMap
      */
-    public function attachEvents()
+    public function attachEvents(array $eventHandlersMap = null)
     {
+        if (!is_null($eventHandlersMap)) {
+            $this->setEventHandlersMap($eventHandlersMap);
+        }
+
         foreach ($this->eventHandlersMap as $element) {
            $this->processEventHandlerMapElement($element);
         }
