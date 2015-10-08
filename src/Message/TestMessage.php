@@ -11,7 +11,7 @@ class TestMessage extends BasicMessage
      * @param string $receiver
      * @param string $message
      */
-    public function __construct($receiver, $message)
+    public function __construct($receiver = null, $message = null)
     {
         parent::__construct($receiver, $message);
     }

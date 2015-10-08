@@ -21,7 +21,7 @@ abstract class BasicMessage implements MessageInterface
      * @param string $receiver
      * @param string $message
      */
-    public function __construct($receiver, $message)
+    public function __construct($receiver = null, $message = null)
     {
         $this->receiver = $receiver;
         $this->message = $message;

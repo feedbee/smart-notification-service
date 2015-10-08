@@ -64,7 +64,7 @@ class EmailMessage implements MessageInterface
      * @param string $body
      * @param bool $isHtml
      */
-    public function __construct($to, $subject, $body, $isHtml, $from, $replyTo, $sender, $cc, $bcc)
+    public function __construct($to = null, $subject = null, $body = null, $isHtml = null, $from = null, $replyTo = null, $sender = null, $cc = null, $bcc = null)
     {
         $this->to = $to;
         $this->subject = $subject;
