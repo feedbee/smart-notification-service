@@ -1,6 +1,6 @@
 <?php
 
-namespace Feedbee\SmartNotificationService\Test;
+namespace Feedbee\SmartNotificationService\Tests;
 
 // Setup auto loading
 
@@ -8,4 +8,4 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 // Run tests
 
-(new CommonEmitterTest)->run();
+(new Test\CommonEmitterTest)->run();

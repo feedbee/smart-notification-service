@@ -1,9 +1,11 @@
 <?php
 
-namespace Feedbee\SmartNotificationService\Test;
+namespace Feedbee\SmartNotificationService\Tests\Test;
 
 use Feedbee\SmartNotificationService\EventHandlerService;
 use Feedbee\SmartNotificationService\Resolver\Resolver;
+use Feedbee\SmartNotificationService\Tests\EventEmitter;
+use Feedbee\SmartNotificationService\Tests\Helper\Repo;
 
 class BasicTest
 {
@@ -21,17 +23,15 @@ class BasicTest
             return new $name;
         });
 
-        $emitterResolver = new Resolver;
-
-
+        $eventEmitterResolver = new Resolver;
         $repository = new Repo;
         $repository->set('emitter', $emitter);
-        $emitterResolver->setLocator($repository);
+        $eventEmitterResolver->setLocator($repository);
 
         // Setup handler service
 
         $hs = new EventHandlerService;
-        $hs->setEventEmitterResolver($emitterResolver);
+        $hs->setEventEmitterResolver($eventEmitterResolver);
         $hs->setEventEmitterAdapterResolver($commonResolver);
         $hs->setHandlerResolver($commonResolver);
         $handlers = [
@@ -39,7 +39,7 @@ class BasicTest
                 'events-emitter' => 'emitter',
                 'events-emitter-adapter' => $emitterAdapter,
                 'events' => EventEmitter\Custom::EVENT_ACTIVATED,
-                'handlers' => 'Feedbee\SmartNotificationService\Test\EventHandler\Activated'
+                'handlers' => 'Feedbee\SmartNotificationService\Tests\EventHandler\Activated'
             ]
         ];
 

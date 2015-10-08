@@ -1,6 +1,8 @@
 <?php
 
-namespace Feedbee\SmartNotificationService\Test;
+namespace Feedbee\SmartNotificationService\Tests\Test;
+
+use Feedbee\SmartNotificationService\Tests\EventEmitter;
 
 class CommonEmitterTest extends BasicTest
 {

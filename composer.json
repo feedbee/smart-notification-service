@@ -21,8 +21,8 @@
       "Feedbee\\SmartNotificationService\\": [
         "src/"
       ],
-      "Feedbee\\SmartNotificationService\\Test\\": [
-        "test/"
+      "Feedbee\\SmartNotificationService\\Tests\\": [
+        "tests/"
       ]
     }
   }

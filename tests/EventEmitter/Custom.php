@@ -1,6 +1,6 @@
 <?php
 
-namespace Feedbee\SmartNotificationService\Test\EventEmitter;
+namespace Feedbee\SmartNotificationService\Tests\EventEmitter;
 
 class Custom implements EventEmitterInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Feedbee\SmartNotificationService\Test;
+namespace Feedbee\SmartNotificationService\Tests\Helper;
 
 class Repo
 {
