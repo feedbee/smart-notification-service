@@ -15,8 +15,8 @@ class EventHandlerService
      *
      * [
      *   [
-     *     'events-emitter' => $eventsEmitter, // optional
-     *     'events-emitter-adapter' => $eventsEmitterAdapter, // optional
+     *     'events-emitter' => $eventEmitter, // optional
+     *     'events-emitter-adapter' => $eventEmitterAdapter, // optional
      *     'events' => ['event-name-1', 'event-name-2', ...],
      *     'handlers' => [$handler_1, $handler_2, ...],
      *     'exceptions-mode' => 'intercept' | 'bypath', // optional
@@ -24,15 +24,15 @@ class EventHandlerService
      *   ...
      * ]
      *
-     * $eventsEmitter and $handler_* may be both object instances (any type of callable in case of $handler_*)
+     * $eventEmitter and $handler_* may be both object instances (any type of callable in case of $handler_*)
      * or a name of a service to get it from IoC container.
      *
-     * $eventsEmitter may be either event dispatcher/manager or observable object depending on what way of
-     * event processing you use. If is not set, $this->defaultEventsEmitter is used.
+     * $eventEmitter may be either event dispatcher/manager or observable object depending on what way of
+     * event processing you use. If is not set, $this->defaultEventEmitter is used.
      *
-     * $eventsEmitterAdapter is EventsEmitterAdapter\EventsEmitterAdapterInterface implementation that call
+     * $eventEmitterAdapter is EventEmitterAdapter\EventEmitterAdapterInterface implementation that call
      * corresponding event attach method for event manager implementations of different vendors. If is not set,
-     * $this->defaultEventsEmitterAdapter is used.
+     * $this->defaultEventEmitterAdapter is used.
      *
      * @var array
      */
@@ -41,22 +41,22 @@ class EventHandlerService
     /**
      * @var object
      */
-    private $defaultEventsEmitter = null;
+    private $defaultEventEmitter = null;
 
     /**
-     * @var EventsEmitterAdapter\EventsEmitterAdapterInterface
+     * @var EventEmitterAdapter\EventEmitterAdapterInterface
      */
-    private $defaultEventsEmitterAdapter = null;
-
-    /**
-     * @var Resolver\ResolverInterface
-     */
-    private $eventsEmitterResolver;
+    private $defaultEventEmitterAdapter = null;
 
     /**
      * @var Resolver\ResolverInterface
      */
-    private $eventsEmitterAdapterResolver;
+    private $eventEmitterResolver;
+
+    /**
+     * @var Resolver\ResolverInterface
+     */
+    private $eventEmitterAdapterResolver;
 
     /**
      * @var Resolver\ResolverInterface
@@ -94,16 +94,16 @@ class EventHandlerService
      * @param array $eventNames
      * @param array $handlers
      * @param string $exceptionsMode
-     * @param object $eventsEmitter
-     * @param EventsEmitterAdapter\EventsEmitterAdapterInterface $eventsEmitterAdapter
+     * @param object $eventEmitter
+     * @param EventEmitterAdapter\EventEmitterAdapterInterface $eventEmitterAdapter
      */
     public function addEventHandlers(array $eventNames, array $handlers, $exceptionsMode = 'bypath',
-                                     $eventsEmitter = null,
-                                     EventsEmitterAdapter\EventsEmitterAdapterInterface $eventsEmitterAdapter = null)
+                                     $eventEmitter = null,
+                                     EventEmitterAdapter\EventEmitterAdapterInterface $eventEmitterAdapter = null)
     {
         $this->eventHandlersMap[] = [
-            'events-emitter' => $eventsEmitter,
-            'events-emitter-adapter' => $eventsEmitterAdapter,
+            'events-emitter' => $eventEmitter,
+            'events-emitter-adapter' => $eventEmitterAdapter,
             'events' => $eventNames,
             'handlers' => $handlers,
             'exceptions-mode' => $exceptionsMode,
@@ -130,18 +130,18 @@ class EventHandlerService
      */
     private function processEventHandlerMapElement(array $element)
     {
-        $eventsEmitter = isset($element['events-emitter']) ? $element['events-emitter'] : $this->defaultEventsEmitter;
-        if (!isset($eventsEmitter)) {
+        $eventEmitter = isset($element['events-emitter']) ? $element['events-emitter'] : $this->defaultEventEmitter;
+        if (!isset($eventEmitter)) {
             throw new \RuntimeException('Event emitter is not set');
         }
-        $eventsEmitter = $this->resolveEventsEmitter($eventsEmitter);
+        $eventEmitter = $this->resolveEventEmitter($eventEmitter);
 
-        $eventsEmitterAdapter = isset($element['events-emitter-adapter'])
-            ? $element['events-emitter-adapter'] : $this->defaultEventsEmitterAdapter;
-        if (!isset($eventsEmitterAdapter)) {
+        $eventEmitterAdapter = isset($element['events-emitter-adapter'])
+            ? $element['events-emitter-adapter'] : $this->defaultEventEmitterAdapter;
+        if (!isset($eventEmitterAdapter)) {
             throw new \RuntimeException('Event emitter adapter is not set');
         }
-        $eventsEmitterAdapter = $this->resolveEventsEmitterAdapter($eventsEmitterAdapter);
+        $eventEmitterAdapter = $this->resolveEventEmitterAdapter($eventEmitterAdapter);
 
         if (!isset($element['handlers'])) {
             throw new \RuntimeException('Event handler is not set');
@@ -157,7 +157,7 @@ class EventHandlerService
 
         foreach ($handlers as $handler) {
             $handler = $this->setupHandler($handler);
-            $this->attachEventsItem($eventsEmitter, $eventsEmitterAdapter, $eventNames, $handler, $interceptExceptions);
+            $this->attachEventsItem($eventEmitter, $eventEmitterAdapter, $eventNames, $handler, $interceptExceptions);
         }
     }
 
@@ -190,18 +190,18 @@ class EventHandlerService
     }
 
     /**
-     * @param object $eventsEmitter
-     * @param EventsEmitterAdapter\EventsEmitterAdapterInterface $eventsEmitterAdapter
+     * @param object $eventEmitter
+     * @param EventEmitterAdapter\EventEmitterAdapterInterface $eventEmitterAdapter
      * @param array $eventNames
      * @param callable $handler
      * @param bool $interceptExceptions
      * @throws \Exception
      */
-    private function attachEventsItem($eventsEmitter, EventsEmitterAdapter\EventsEmitterAdapterInterface $eventsEmitterAdapter,
+    private function attachEventsItem($eventEmitter, EventEmitterAdapter\EventEmitterAdapterInterface $eventEmitterAdapter,
                                       $eventNames, callable $handler, $interceptExceptions)
     {
         try {
-            $eventsEmitterAdapter->attachEvents($eventNames, $handler, $eventsEmitter);
+            $eventEmitterAdapter->attachEvents($eventNames, $handler, $eventEmitter);
         } catch (\Exception $e) {
             if (!$interceptExceptions) {
                 throw $e;
@@ -223,14 +223,14 @@ class EventHandlerService
      * @param mixed $nameOrInstance
      * @return object
      */
-    private function resolveEventsEmitter($nameOrInstance)
+    private function resolveEventEmitter($nameOrInstance)
     {
         if (is_object($nameOrInstance)) {
             return $nameOrInstance;
         }
 
         try {
-            return $this->getEventsEmitterResolver()->resolve($nameOrInstance);
+            return $this->getEventEmitterResolver()->resolve($nameOrInstance);
         }
         catch (\RuntimeException $e)
         {
@@ -240,16 +240,16 @@ class EventHandlerService
 
     /**
      * @param mixed $nameOrInstance
-     * @return EventsEmitterAdapter\EventsEmitterAdapterInterface
+     * @return EventEmitterAdapter\EventEmitterAdapterInterface
      */
-    private function resolveEventsEmitterAdapter($nameOrInstance)
+    private function resolveEventEmitterAdapter($nameOrInstance)
     {
         if (is_object($nameOrInstance)) {
             return $nameOrInstance;
         }
 
         try {
-            return $this->getEventsEmitterAdapterResolver()->resolve($nameOrInstance);
+            return $this->getEventEmitterAdapterResolver()->resolve($nameOrInstance);
         }
         catch (\RuntimeException $e)
         {
@@ -309,65 +309,65 @@ class EventHandlerService
     /**
      * @return object
      */
-    public function getDefaultEventsEmitter()
+    public function getDefaultEventEmitter()
     {
-        return $this->defaultEventsEmitter;
+        return $this->defaultEventEmitter;
     }
 
     /**
-     * @param object $defaultEventsEmitter
+     * @param object $defaultEventEmitter
      */
-    public function setDefaultEventsEmitter($defaultEventsEmitter = null)
+    public function setDefaultEventEmitter($defaultEventEmitter = null)
     {
-        $this->defaultEventsEmitter = $defaultEventsEmitter;
+        $this->defaultEventEmitter = $defaultEventEmitter;
     }
 
     /**
-     * @return EventsEmitterAdapter\EventsEmitterAdapterInterface
+     * @return EventEmitterAdapter\EventEmitterAdapterInterface
      */
-    public function getDefaultEventsEmitterAdapter()
+    public function getDefaultEventEmitterAdapter()
     {
-        return $this->defaultEventsEmitterAdapter;
+        return $this->defaultEventEmitterAdapter;
     }
 
     /**
-     * @param EventsEmitterAdapter\EventsEmitterAdapterInterface $defaultEventsEmitterAdapter
+     * @param EventEmitterAdapter\EventEmitterAdapterInterface $defaultEventEmitterAdapter
      */
-    public function setDefaultEventsEmitterAdapter(EventsEmitterAdapter\EventsEmitterAdapterInterface $defaultEventsEmitterAdapter = null)
+    public function setDefaultEventEmitterAdapter(EventEmitterAdapter\EventEmitterAdapterInterface $defaultEventEmitterAdapter = null)
     {
-        $this->defaultEventsEmitterAdapter = $defaultEventsEmitterAdapter;
-    }
-
-    /**
-     * @return Resolver\ResolverInterface
-     */
-    public function getEventsEmitterResolver()
-    {
-        return $this->eventsEmitterResolver;
-    }
-
-    /**
-     * @param Resolver\ResolverInterface $eventsEmitterResolver
-     */
-    public function setEventsEmitterResolver($eventsEmitterResolver)
-    {
-        $this->eventsEmitterResolver = $eventsEmitterResolver;
+        $this->defaultEventEmitterAdapter = $defaultEventEmitterAdapter;
     }
 
     /**
      * @return Resolver\ResolverInterface
      */
-    public function getEventsEmitterAdapterResolver()
+    public function getEventEmitterResolver()
     {
-        return $this->eventsEmitterAdapterResolver;
+        return $this->eventEmitterResolver;
     }
 
     /**
-     * @param Resolver\ResolverInterface $eventsEmitterAdapterResolver
+     * @param Resolver\ResolverInterface $eventEmitterResolver
      */
-    public function setEventsEmitterAdapterResolver($eventsEmitterAdapterResolver)
+    public function setEventEmitterResolver($eventEmitterResolver)
     {
-        $this->eventsEmitterAdapterResolver = $eventsEmitterAdapterResolver;
+        $this->eventEmitterResolver = $eventEmitterResolver;
+    }
+
+    /**
+     * @return Resolver\ResolverInterface
+     */
+    public function getEventEmitterAdapterResolver()
+    {
+        return $this->eventEmitterAdapterResolver;
+    }
+
+    /**
+     * @param Resolver\ResolverInterface $eventEmitterAdapterResolver
+     */
+    public function setEventEmitterAdapterResolver($eventEmitterAdapterResolver)
+    {
+        $this->eventEmitterAdapterResolver = $eventEmitterAdapterResolver;
     }
 
     /**

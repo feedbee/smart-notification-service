@@ -1,8 +1,8 @@
 <?php
 
-namespace Feedbee\SmartNotificationService\EventsEmitterAdapter\Zf2;
+namespace Feedbee\SmartNotificationService\EventEmitterAdapter\Zf2;
 
-use Feedbee\SmartNotificationService\EventsEmitterAdapter\EventsEmitterAdapterInterface,
+use Feedbee\SmartNotificationService\EventEmitterAdapter\EventEmitterAdapterInterface,
     /** @noinspection PhpUndefinedNamespaceInspection */
     /** @noinspection PhpUndefinedClassInspection */
     Zend\EventManager\SharedEventManagerInterface as ZendSharedEventManagerInterface;
@@ -12,7 +12,7 @@ use Feedbee\SmartNotificationService\EventsEmitterAdapter\EventsEmitterAdapterIn
  * Zend\EventManager\SharedEventManagerInterface
  * http://framework.zend.com/manual/current/en/modules/zend.event-manager.event-manager.html
  */
-class SharedEventManager implements EventsEmitterAdapterInterface
+class SharedEventManager implements EventEmitterAdapterInterface
 {
     /** @noinspection PhpUndefinedClassInspection */
     /**
@@ -20,14 +20,14 @@ class SharedEventManager implements EventsEmitterAdapterInterface
      *
      * @param array|string $eventNames
      * @param callable $handler
-     * @param ZendSharedEventManagerInterface $eventsEmitter
+     * @param ZendSharedEventManagerInterface $eventEmitter
      */
-    public function attachEvents($eventNames, callable $handler, $eventsEmitter)
+    public function attachEvents($eventNames, callable $handler, $eventEmitter)
     {
         /** @noinspection PhpUndefinedClassInspection */
-        if (!$eventsEmitter instanceof ZendEventManagerInterface) {
-            throw new \RuntimeException('$eventsEmitter parameter for Zf2\EventManager adapter must be instance of '
-                . '`Zend\EventManager\SharedEventManagerInterface`, but instance of `' . get_class($eventsEmitter)
+        if (!$eventEmitter instanceof ZendEventManagerInterface) {
+            throw new \RuntimeException('$eventEmitter parameter for Zf2\EventManager adapter must be instance of '
+                . '`Zend\EventManager\SharedEventManagerInterface`, but instance of `' . get_class($eventEmitter)
                 . '` was given');
         }
 
@@ -38,7 +38,7 @@ class SharedEventManager implements EventsEmitterAdapterInterface
         foreach ($eventNames as $eventName) {
             list($namespace, $localEventName) = $this->splitEventName($eventName);
             /** @noinspection PhpUndefinedMethodInspection */
-            $eventsEmitter->attach($namespace, $localEventName, $handler);
+            $eventEmitter->attach($namespace, $localEventName, $handler);
         }
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Feedbee\SmartNotificationService\EventsEmitterAdapter;
+namespace Feedbee\SmartNotificationService\EventEmitterAdapter;
 
 use /** @noinspection PhpUndefinedNamespaceInspection */
     /** @noinspection PhpUndefinedClassInspection */
@@ -11,7 +11,7 @@ use /** @noinspection PhpUndefinedNamespaceInspection */
  * Symfony\Component\EventDispatcher\EventDispatcher
  * http://symfony.com/doc/current/components/event_dispatcher/introduction.html#the-dispatcher
  */
-class Symfony2 implements EventsEmitterAdapterInterface
+class Symfony2 implements EventEmitterAdapterInterface
 {
     /** @noinspection PhpUndefinedClassInspection */
     /**
@@ -19,14 +19,14 @@ class Symfony2 implements EventsEmitterAdapterInterface
      *
      * @param array|string $eventNames
      * @param callable $handler
-     * @param SymfonyEventDispatcher $eventsEmitter
+     * @param SymfonyEventDispatcher $eventEmitter
      */
-    public function attachEvents($eventNames, callable $handler, $eventsEmitter)
+    public function attachEvents($eventNames, callable $handler, $eventEmitter)
     {
         /** @noinspection PhpUndefinedClassInspection */
-        if (!$eventsEmitter instanceof SymfonyEventDispatcher) {
-            throw new \RuntimeException('$eventsEmitter parameter for Symfony2 adapter must be instance of '
-                . '`Symfony\Component\EventDispatcher\EventDispatcher`, but instance of `' . get_class($eventsEmitter)
+        if (!$eventEmitter instanceof SymfonyEventDispatcher) {
+            throw new \RuntimeException('$eventEmitter parameter for Symfony2 adapter must be instance of '
+                . '`Symfony\Component\EventDispatcher\EventDispatcher`, but instance of `' . get_class($eventEmitter)
                 . '` was given');
         }
 
@@ -36,7 +36,7 @@ class Symfony2 implements EventsEmitterAdapterInterface
 
         foreach ($eventNames as $eventName) {
             /** @noinspection PhpUndefinedMethodInspection */
-            $eventsEmitter->addListener($eventName, $handler);
+            $eventEmitter->addListener($eventName, $handler);
         }
     }
 }

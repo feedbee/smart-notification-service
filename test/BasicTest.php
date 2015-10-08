@@ -31,8 +31,8 @@ class BasicTest
         // Setup handler service
 
         $hs = new EventHandlerService;
-        $hs->setEventsEmitterResolver($emitterResolver);
-        $hs->setEventsEmitterAdapterResolver($commonResolver);
+        $hs->setEventEmitterResolver($emitterResolver);
+        $hs->setEventEmitterAdapterResolver($commonResolver);
         $hs->setHandlerResolver($commonResolver);
         $handlers = [
             [
