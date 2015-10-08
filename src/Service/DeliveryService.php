@@ -26,10 +26,10 @@ class DeliveryService
      * @param array $messageTypeToChannelMap
      * @param Resolver\ResolverInterface $deliveryChannelResolver
      */
-    public function __construct(array $messageTypeToChannelMap = [], Resolver\ResolverInterface $deliveryChannelResolver = null)
+    public function __construct(array $messageTypeToChannelMap = null, Resolver\ResolverInterface $deliveryChannelResolver = null)
     {
-        $this->messageTypeToChannelMap = $messageTypeToChannelMap;
-        $this->deliveryChannelResolver = $deliveryChannelResolver;
+        !is_null($messageTypeToChannelMap) && $this->messageTypeToChannelMap = $messageTypeToChannelMap;
+        !is_null($deliveryChannelResolver) && $this->deliveryChannelResolver = $deliveryChannelResolver;
     }
 
 
