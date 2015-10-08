@@ -65,7 +65,7 @@ class EventHandlerService
     /**
      * @var Resolver\ResolverInterface
      */
-    private $handlerResolver;
+    private $eventHandlerResolver;
 
     /**
      * @var DeliveryService
@@ -277,7 +277,7 @@ class EventHandlerService
         }
 
         try {
-            return $this->getHandlerResolver()->resolve($nameOrInstance);
+            return $this->getEventHandlerResolver()->resolve($nameOrInstance);
         }
         catch (\RuntimeException $e)
         {
@@ -382,16 +382,16 @@ class EventHandlerService
     /**
      * @return Resolver\ResolverInterface
      */
-    public function getHandlerResolver()
+    public function getEventHandlerResolver()
     {
-        return $this->handlerResolver;
+        return $this->eventHandlerResolver;
     }
 
     /**
      * @param Resolver\ResolverInterface $handlerResolver
      */
-    public function setHandlerResolver($handlerResolver)
+    public function setEventHandlerResolver($handlerResolver)
     {
-        $this->handlerResolver = $handlerResolver;
+        $this->eventHandlerResolver = $handlerResolver;
     }
 }

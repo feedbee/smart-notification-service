@@ -39,7 +39,7 @@ class BasicTest
         $hs = new EventHandlerService;
         $hs->setEventEmitterResolver($eventEmitterResolver);
         $hs->setEventEmitterAdapterResolver($commonResolver);
-        $hs->setHandlerResolver($commonResolver);
+        $hs->setEventHandlerResolver($commonResolver);
         $hs->setDeliveryService($ds);
         $handlers = [
             [
