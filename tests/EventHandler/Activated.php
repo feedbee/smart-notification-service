@@ -2,10 +2,14 @@
 
 namespace Feedbee\SmartNotificationService\Tests\EventHandler;
 
-class Activated
+use Feedbee\SmartNotificationService\EventHandler\AbstractEventHandler;
+
+class Activated extends AbstractEventHandler
 {
     public function __invoke($event)
     {
         print "Activated: {$event->params['value']}\n";
+
+
     }
 }

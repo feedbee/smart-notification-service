@@ -177,6 +177,7 @@ class EventHandlerService
         if ($handlerLazyLoading) {
             $handler = function () use ($handler) {
                 $realHandler = $this->resolveHandler($handler);
+                $realHandler->setDeliveryService($this->resolveDeliveryService());
                 if (!is_callable($realHandler)) {
                     throw new \RuntimeException('Event handler must be callable, but `' . get_class($realHandler) . '` given');
                 }
