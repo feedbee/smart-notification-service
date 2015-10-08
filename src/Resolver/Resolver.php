@@ -1,13 +1,13 @@
 <?php
 
-namespace Feedbee\SmartNotificationService\ServiceResolver;
+namespace Feedbee\SmartNotificationService\Resolver;
 
 /**
  * Resolve resources creation for needs of Smart Notification Service.
  * Uses factory and/or any type of Service Locator (Repository / IoC container / Service Locator)
  * to get resource instance based on it's name.
  */
-class ServiceResolver implements ServiceResolverInterface
+class Resolver implements ResolverInterface
 {
     private $factory;
 

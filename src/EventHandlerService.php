@@ -8,7 +8,7 @@ namespace Feedbee\SmartNotificationService;
  * be used in conjunction as with observable objects, as with different repositories, service locators, IoC containers
  * and so on.
  */
-class HandlerService
+class EventHandlerService
 {
     /**
      * Map handlers to events
@@ -49,17 +49,17 @@ class HandlerService
     private $defaultEventsEmitterAdapter = null;
 
     /**
-     * @var ServiceResolver\ServiceResolverInterface
+     * @var Resolver\ResolverInterface
      */
     private $eventsEmitterResolver;
 
     /**
-     * @var ServiceResolver\ServiceResolverInterface
+     * @var Resolver\ResolverInterface
      */
     private $eventsEmitterAdapterResolver;
 
     /**
-     * @var ServiceResolver\ServiceResolverInterface
+     * @var Resolver\ResolverInterface
      */
     private $handlerResolver;
 
@@ -259,7 +259,7 @@ class HandlerService
 
     /**
      * @param mixed $nameOrInstance
-     * @return Handler\EventHandlerInterface
+     * @return EventHandler\EventHandlerInterface
      */
     private function resolveHandler($nameOrInstance)
     {
@@ -339,7 +339,7 @@ class HandlerService
     }
 
     /**
-     * @return ServiceResolver\ServiceResolverInterface
+     * @return Resolver\ResolverInterface
      */
     public function getEventsEmitterResolver()
     {
@@ -347,7 +347,7 @@ class HandlerService
     }
 
     /**
-     * @param ServiceResolver\ServiceResolverInterface $eventsEmitterResolver
+     * @param Resolver\ResolverInterface $eventsEmitterResolver
      */
     public function setEventsEmitterResolver($eventsEmitterResolver)
     {
@@ -355,7 +355,7 @@ class HandlerService
     }
 
     /**
-     * @return ServiceResolver\ServiceResolverInterface
+     * @return Resolver\ResolverInterface
      */
     public function getEventsEmitterAdapterResolver()
     {
@@ -363,7 +363,7 @@ class HandlerService
     }
 
     /**
-     * @param ServiceResolver\ServiceResolverInterface $eventsEmitterAdapterResolver
+     * @param Resolver\ResolverInterface $eventsEmitterAdapterResolver
      */
     public function setEventsEmitterAdapterResolver($eventsEmitterAdapterResolver)
     {
@@ -371,7 +371,7 @@ class HandlerService
     }
 
     /**
-     * @return ServiceResolver\ServiceResolverInterface
+     * @return Resolver\ResolverInterface
      */
     public function getHandlerResolver()
     {
@@ -379,7 +379,7 @@ class HandlerService
     }
 
     /**
-     * @param ServiceResolver\ServiceResolverInterface $handlerResolver
+     * @param Resolver\ResolverInterface $handlerResolver
      */
     public function setHandlerResolver($handlerResolver)
     {

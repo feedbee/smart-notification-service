@@ -8,7 +8,7 @@ namespace Feedbee\SmartNotificationService;
 class DeliveryService
 {
     /**
-     * @var ServiceResolver\ServiceResolverInterface
+     * @var Resolver\ResolverInterface
      */
     private $deliveryChannelResolver;
 
@@ -63,7 +63,7 @@ class DeliveryService
     }
 
     /**
-     * @return ServiceResolver\ServiceResolverInterface
+     * @return Resolver\ResolverInterface
      */
     public function getDeliveryChannelResolver()
     {
@@ -71,7 +71,7 @@ class DeliveryService
     }
 
     /**
-     * @param ServiceResolver\ServiceResolverInterface $deliveryChannelResolver
+     * @param Resolver\ResolverInterface $deliveryChannelResolver
      */
     public function setDeliveryChannelResolver($deliveryChannelResolver)
     {

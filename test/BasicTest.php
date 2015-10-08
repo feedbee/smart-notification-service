@@ -2,26 +2,26 @@
 
 namespace Feedbee\SmartNotificationService\Test;
 
-use Feedbee\SmartNotificationService\HandlerService;
-use Feedbee\SmartNotificationService\ServiceResolver\ServiceResolver;
+use Feedbee\SmartNotificationService\EventHandlerService;
+use Feedbee\SmartNotificationService\Resolver\Resolver;
 
 class BasicTest
 {
 
     /**
-     * @param Emitter\EmitterInterface $emitter
+     * @param EventEmitter\EventEmitterInterface $emitter
      * @param mixed $emitterAdapter
      */
     public function run($emitter, $emitterAdapter)
     {
         // Setup resolvers
 
-        $commonResolver = new ServiceResolver;
+        $commonResolver = new Resolver;
         $commonResolver->setFactory(function ($name) {
             return new $name;
         });
 
-        $emitterResolver = new ServiceResolver;
+        $emitterResolver = new Resolver;
 
 
         $repository = new Repo;
@@ -30,7 +30,7 @@ class BasicTest
 
         // Setup handler service
 
-        $hs = new HandlerService;
+        $hs = new EventHandlerService;
         $hs->setEventsEmitterResolver($emitterResolver);
         $hs->setEventsEmitterAdapterResolver($commonResolver);
         $hs->setHandlerResolver($commonResolver);
@@ -38,8 +38,8 @@ class BasicTest
             [
                 'events-emitter' => 'emitter',
                 'events-emitter-adapter' => $emitterAdapter,
-                'events' => Emitter\Custom::EVENT_ACTIVATED,
-                'handlers' => 'Feedbee\SmartNotificationService\Test\Handler\Activated'
+                'events' => EventEmitter\Custom::EVENT_ACTIVATED,
+                'handlers' => 'Feedbee\SmartNotificationService\Test\EventHandler\Activated'
             ]
         ];
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Feedbee\SmartNotificationService\Test\Emitter;
+namespace Feedbee\SmartNotificationService\Test\EventEmitter;
 
-class Custom implements EmitterInterface
+class Custom implements EventEmitterInterface
 {
     const EVENT_ACTIVATED = 'activated';
 

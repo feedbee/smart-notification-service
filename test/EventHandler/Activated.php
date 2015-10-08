@@ -1,6 +1,6 @@
 <?php
 
-namespace Feedbee\SmartNotificationService\Test\Handler;
+namespace Feedbee\SmartNotificationService\Test\EventHandler;
 
 class Activated
 {

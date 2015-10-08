@@ -1,6 +1,6 @@
 <?php
 
-namespace Feedbee\SmartNotificationService\handler;
+namespace Feedbee\SmartNotificationService\EventHandler;
 
 use Feedbee\SmartNotificationService\DeliveryService;
 
