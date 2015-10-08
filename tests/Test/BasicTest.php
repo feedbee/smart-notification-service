@@ -2,7 +2,7 @@
 
 namespace Feedbee\SmartNotificationService\Tests\Test;
 
-use Feedbee\SmartNotificationService\EventHandlerService;
+use Feedbee\SmartNotificationService\Service\EventHandlerService;
 use Feedbee\SmartNotificationService\Resolver\Resolver;
 use Feedbee\SmartNotificationService\Tests\EventEmitter;
 use Feedbee\SmartNotificationService\Tests\Helper\Repo;

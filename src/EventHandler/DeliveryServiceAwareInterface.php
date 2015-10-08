@@ -2,7 +2,7 @@
 
 namespace Feedbee\SmartNotificationService\EventHandler;
 
-use Feedbee\SmartNotificationService\DeliveryService;
+use Feedbee\SmartNotificationService\Service\DeliveryService;
 
 interface DeliveryServiceAwareInterface
 {

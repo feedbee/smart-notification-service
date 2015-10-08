@@ -1,6 +1,10 @@
 <?php
 
-namespace Feedbee\SmartNotificationService;
+namespace Feedbee\SmartNotificationService\Service;
+
+use Feedbee\SmartNotificationService\EventEmitterAdapter;
+use Feedbee\SmartNotificationService\Resolver;
+use Feedbee\SmartNotificationService\EventHandler;
 
 /**
  * Service to tie events emitters and consumers. Attaches events-listeners given in Event Handles Map to events-emitter

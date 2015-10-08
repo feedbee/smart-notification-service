@@ -1,6 +1,10 @@
 <?php
 
-namespace Feedbee\SmartNotificationService;
+namespace Feedbee\SmartNotificationService\Service;
+
+use Feedbee\SmartNotificationService\Resolver;
+use Feedbee\SmartNotificationService\Message;
+use Feedbee\SmartNotificationService\DeliveryChannel;
 
 /**
  *
