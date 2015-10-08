@@ -1,8 +1,10 @@
 <?php
 
-namespace Feedbee\SmartNotificationService\DeliveryChannel;
+namespace Feedbee\SmartNotificationService\DeliveryChannel\Http;
 
 use Feedbee\SmartNotificationService\Message\MessageInterface;
+use Feedbee\SmartNotificationService\DeliveryChannel\DeliveryChannelInterface;
+use Feedbee\SmartNotificationService\DeliveryChannel\Exception;
 
 abstract class SimpleHttpApi implements DeliveryChannelInterface
 {
